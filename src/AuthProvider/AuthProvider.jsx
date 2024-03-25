@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import app from "../firebase/firebase.config";
 import PropTypes from 'prop-types';
 
@@ -26,6 +26,11 @@ const AuthProvider = ({children}) => {
         return signInWithPopup(auth, provider)
     }
 
+    // user sign out credential
+    const logOut = () => {
+        return signOut(auth);
+    }
+
     // set observer on Auth
     useEffect(() => {
         const unSubcribe = onAuthStateChanged(auth, currentUser => {
@@ -42,7 +47,8 @@ const AuthProvider = ({children}) => {
         loading,
         createUser,
         signIn,
-        googleSignIn
+        googleSignIn,
+        logOut
     }
     return (
         <AuthContext.Provider value={authInfo}>
@@ -54,5 +60,5 @@ const AuthProvider = ({children}) => {
 export default AuthProvider;
 
 AuthProvider.propTypes = {
-    children: PropTypes.array,
+    children: PropTypes.object,
 }

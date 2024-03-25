@@ -36,6 +36,9 @@ const SignUp = () => {
         })
     }  
 
+    //user logout
+    // const
+
 
   return (
     <div className="flex items-center mx-40 my-40">
